@@ -1,148 +1,152 @@
-# 🌾 PANDUAN PRESENTASI: KLASIFIKASI PENYAKIT DAUN PADI DENGAN MACHINE LEARNING & DEEP LEARNING
-
-Selamat datang di repositori panduan presentasi kelompok. Dokumen ini dirancang sebagai acuan teknis dan naskah presentasi untuk **5 orang** dengan estimasi durasi total **6–7 menit**. 
-
-Studi kasus ini membandingkan performa tiga algoritma populer dalam mendeteksi dan mengklasifikasikan penyakit daun padi: **Convolutional Neural Network (CNN)**, **Random Forest (RF)**, dan **Support Vector Machine (SVM)**.
+# 📊 PANDUAN PRESENTASI & ANALISIS MENDALAM: CLUSTERING PERFORMA SISWA (K-MEANS)
+Repositori ini berisi panduan teknis, naskah presentasi, dan analisis mendalam untuk presentasi kelompok **2 orang** dengan durasi tepat **6 menit**. Analisis ini didasarkan pada file [analisis_clustering_performa_siswa.py](file:///c:/Users/Kaisha/Documents/!TUGAS%20KAISHA/semester%204/persentasi%20DATA%20MINING/analisis_clustering_performa_siswa.py) dengan dataset utama [student-mat.csv](file:///c:/Users/Kaisha/Documents/!TUGAS%20KAISHA/semester%204/persentasi%20DATA%20MINING/student-mat.csv).
 
 ---
 
-## 📊 Ringkasan Eksekutif Performa Model
+## 🎯 Fondasi Analisis: Mengapa Memilih Data Ini?
 
-Sebelum memulai presentasi, berikut adalah data performa model berdasarkan hasil pengujian yang terekam dalam gambar folder ini:
-
-| Algoritma | Akurasi Uji / Validasi | Durasi Training | Keterangan / Karakteristik |
-| :--- | :---: | :---: | :--- |
-| **CNN** (Deep Learning) | **85.16%** | ~8–10 menit (20 Epoch) | **Model Terbaik**. Mengekstrak fitur spasial secara otomatis langsung dari piksel daun. |
-| **Random Forest** (200 Trees) | **80.92%** | **73.97 detik** | **Sangat Efisien**. Berbasis ensemble decision trees, waktu training cepat dengan akurasi tinggi. |
-| **SVM** (RBF Kernel) | **64.31%** | 247.95 detik | **Performa Terendah**. Sangat sensitif terhadap *class imbalance* dan fitur manual yang saling tumpang tindih. |
-
----
-
-## 👥 Struktur & Pembagian Pembicara (Total Durasi: 6–7 Menit)
-
-Presentasi dibagi menjadi 5 bagian yang saling berkesinambungan. Setiap pembicara memiliki waktu sekitar **1 menit hingga 1 menit 30 detik**.
+Dosen meminta analisis yang teliti terkait relevansi, keandalan, dan signifikansi dataset dalam proyek ini. Berikut adalah argumentasi ilmiah mengapa dataset ini dipilih:
 
 ```mermaid
-graph TD
-    P1[Pembicara 1: Pendahuluan<br>1m 15s] --> P2[Pembicara 2: Dataset & Pra-pemrosesan<br>1m 15s]
-    P2 --> P3[Pembicara 3: Metodologi Algoritma<br>1m 30s]
-    P3 --> P4[Pembicara 4: Analisis Perbandingan & Visualisasi<br>1m 30s]
-    P4 --> P5[Pembicara 5: Kesimpulan & Solusi<br>1m 00s]
+graph LR
+    A[Dataset: student-mat.csv] --> B(Relevansi)
+    A --> C(Keandalan)
+    A --> D(Signifikansi)
+    
+    B --> B1[Prediksi & Intervensi Dini Kebijakan Akademik]
+    C --> C1[UCI Machine Learning Repository & Data Riil Portugal]
+    D --> D1[Clustering K-Means untuk Personalisasi Bimbingan]
 ```
 
----
+### 1. Relevansi (Relevance)
+* **Konteks Masalah**: Pendidikan modern menghadapi tantangan besar dalam mendeteksi penurunan performa siswa sebelum semester berakhir. Identifikasi manual sering terlambat, berujung pada tingginya angka ketidaklulusan.
+* **Kesesuaian Fitur**: Dataset ini memiliki atribut komprehensif yang menghubungkan aspek perilaku belajar (`studytime`), riwayat hambatan akademis (`failures`), disiplin kehadiran (`absences`), dan performa akademis berkala (`G1` UTS-1, `G2` UTS-2, `G3` Nilai Akhir).
+* **Solusi**: Fitur-fitur ini sangat relevan untuk memetakan profil belajar siswa sehingga sekolah dapat mengambil tindakan pencegahan secara proaktif.
 
-### 🎙️ Naskah Presentasi Detail per Pembicara
+### 2. Keandalan (Reliability)
+* **Sumber Kredibel**: Dataset ini diambil dari **UCI Machine Learning Repository**, repositori standar internasional untuk riset data mining.
+* **Metode Pengumpulan**: Data dikumpulkan melalui laporan evaluasi sekolah resmi dan kuesioner terstruktur dari siswa di dua sekolah menengah atas di Portugal (Gabriel Pereira dan Mousinho da Silveira).
+* **Kualitas Data**: Dataset bersih dari *missing values*, memiliki format terstruktur, dan memiliki ukuran sampel yang memadai (397 baris data) untuk menghasilkan model clustering K-Means yang stabil dan dapat dipertanggungjawabkan.
 
-#### 👤 PEMBICARA 1: Pendahuluan & Latar Belakang
-* **Porsi Waktu:** 00:00 - 01:15 (75 detik)
-* **Visual Pendukung:** Judul Presentasi, Foto Padi Terinfeksi, Angka Statistik Pertanian.
-* **Teks Panduan Presentasi:**
-  > "Halo semuanya, selamat pagi/siang. Kami dari Kelompok [Nama Kelompok] hari ini akan mempresentasikan penelitian kami mengenai perbandingan tiga algoritma Machine Learning untuk klasifikasi penyakit daun padi.
-  > 
-  > Padi adalah komoditas pangan utama bagi lebih dari setengah populasi dunia, khususnya di Indonesia. Namun, produktivitas padi sering kali terancam oleh serangan penyakit daun seperti Bercak Coklat, Blast, dan Hawar Daun. Identifikasi manual oleh petani sering kali lambat, subjektif, dan rentan salah diagnosis. Kesalahan diagnosis dapat menyebabkan penanganan yang tidak tepat, merugikan petani secara finansial, dan mengancam ketahanan pangan nasional.
-  > 
-  > Oleh karena itu, kami mengembangkan solusi berbasis Computer Vision dengan membandingkan tiga pendekatan algoritma: SVM, Random Forest, dan CNN untuk mencari model klasifikasi yang paling akurat dan efisien. Mari kita lihat data yang kami gunakan."
-
----
-
-#### 👤 PEMBICARA 2: Deskripsi Dataset & Pra-pemrosesan (Background Removal)
-* **Porsi Waktu:** 01:15 - 02:30 (75 detik)
-* **Visual Pendukung:** Distribusi Dataset (Tabel/Grafik) dan Contoh Gambar Sebelum & Sesudah Background Removal.
-* **Teks Panduan Presentasi:**
-  > "Terima kasih Pembicara 1. Dataset yang kami gunakan terdiri dari total **1.696 citra daun padi** yang dibagi menjadi dua bagian: **1.413 citra untuk training** dan **283 citra untuk testing** (split rasio sekitar 83:17). 
-  > 
-  > Citra tersebut dikelompokkan ke dalam 4 kelas dengan distribusi data training sebagai berikut:
-  > 1. **Bercak Coklat (Brown Spot):** 592 foto (Mayoritas)
-  > 2. **Blast:** 403 foto
-  > 3. **Daun Padi Sehat:** 250 foto
-  > 4. **Hawar Daun Padi (Bacterial Leaf Blight):** 168 foto (Minoritas)
-  > 
-  > Salah satu tantangan utama dalam citra pertanian adalah gangguan latar belakang (seperti tanah, bayangan, gulma, atau tangan petani). Oleh karena itu, kami menerapkan langkah **Pra-pemrosesan krusial**, yaitu **Background Removal**. 
-  > 
-  > Dengan membuang latar belakang dan hanya menyisakan objek daun utama, kita dapat menghilangkan noise visual. Langkah ini memaksa model untuk fokus 100% pada ekstraksi fitur lesion atau gejala penyakit yang ada di permukaan daun, bukan pada variasi background. Selanjutnya, mari kita bahas metodologi klasifikasinya."
+### 3. Signifikansi (Significance)
+* **Dampak Kebijakan**: Pendekatan akademik konvensional sering memperlakukan semua siswa secara sama (generalisasi). Analisis clustering ini memecah generalisasi tersebut dengan menemukan sub-kelompok siswa tersembunyi (*student personas*).
+* **Nilai Informasi**: Penemuan karakteristik cluster memberikan wawasan berharga bagi pembuat keputusan sekolah untuk merancang program bimbingan terarah (*targeted interventions*), mengalokasikan sumber daya konseling secara efisien, dan menaikkan tingkat kelulusan secara terukur.
 
 ---
 
-#### 👤 PEMBICARA 3: Metodologi Algoritma (CNN, RF, SVM)
-* **Porsi Waktu:** 02:30 - 04:00 (90 detik)
-* **Visual Pendukung:** Diagram Alir Metodologi, Arsitektur CNN, Penjelasan Singkat Parameter RF & SVM.
-* **Teks Panduan Presentasi:**
-  > "Terima kasih Pembicara 2. Kami membandingkan tiga pendekatan metodologi dengan karakteristik yang sangat berbeda:
-  > 
-  > Pertama, **Support Vector Machine (SVM)**. SVM bekerja dengan mencari *hyperplane* optimal yang memisahkan kelas-kelas dalam ruang dimensi tinggi menggunakan Kernel RBF. Namun, SVM tradisional membutuhkan ekstraksi fitur manual (seperti tekstur GLCM atau histogram warna) sebelum klasifikasi dilakukan.
-  > 
-  > Kedua, **Random Forest**. Ini adalah algoritma berbasis *Ensemble Learning* yang membangun **200 pohon keputusan (decision trees)** secara acak. Hasil akhir ditentukan melalui mekanisme *majority voting*. Algoritma ini terkenal sangat cepat, tahan terhadap overfitting, namun masih mengandalkan representasi fitur input yang bersifat tabular/datar (flattened pixel atau handcrafted features).
-  > 
-  > Ketiga, **Convolutional Neural Network (CNN)**. Berbeda dengan dua model sebelumnya, CNN adalah model *Deep Learning* yang melakukan ekstraksi fitur secara otomatis dan hierarkis melalui *Convolutional Layers* (untuk mendeteksi tepi, warna, dan pola bercak) diikuti oleh *Pooling Layers* (untuk mereduksi dimensi spasial) dan *Dense Layers* untuk klasifikasi akhir. Kami melatih CNN ini selama **20 epoch** dengan arsitektur yang melatih fitur spasial daun secara mendalam. Sekarang, mari kita bandingkan performa ketiganya."
+## 👥 Struktur Pembagian Pembicara (Total Durasi: 6 Menit)
+
+Presentasi dibagi menjadi 2 sesi utama dengan transisi yang cepat dan profesional untuk memenuhi batas waktu 6 menit.
+
+| Waktu (Menit) | Durasi | Pembicara | Topik Utama | Slide Visual |
+| :---: | :---: | :---: | :--- | :--- |
+| **00:00 - 02:45** | 2 Menit 45 Detik | **Presenter 1** | Sambutan, Perkenalan, Latar Belakang, Relevansi Data, Fitur Seleksi & Penentuan Jumlah Cluster (Elbow Method) | Slide 1, 2, 3, 4 |
+| **02:45 - 05:30** | 2 Menit 45 Detik | **Presenter 2** | Hasil Analisis Cluster, Visualisasi Scatter Plot, Rekomendasi Solusi Akademis | Slide 5, 6, 7 |
+| **05:30 - 06:00** | 30 Detik | **Bersama** | Kesimpulan Akhir, Penutup, dan Sesi Tanya Jawab | Slide 8 |
 
 ---
 
-#### 👤 PEMBICARA 4: Analisis Komparasi Performa & Visualisasi (Confusion Matrix)
-* **Porsi Waktu:** 04:00 - 05:30 (90 detik)
-* **Visual Pendukung:** 
-  * Grafik Akurasi (CNN: 85.16%, RF: 80.92%, SVM: 64.31%)
-  * Gambar Confusion Matrix SVM [WhatsApp Image 2026-06-22 at 19.01.39.jpeg](file:///c:/Users/Kaisha/Documents/!TUGAS%20KAISHA/semester%204/persentasi/WhatsApp%20Image%202026-06-22%20at%2019.01.39.jpeg)
-  * Gambar Classification Report SVM [WhatsApp Image 2026-06-22 at 19.13.42.jpeg](file:///c:/Users/Kaisha/Documents/!TUGAS%20KAISHA/semester%204/persentasi/WhatsApp%20Image%202026-06-22%20at%2019.13.42.jpeg)
-* **Teks Panduan Presentasi:**
-  > "Terima kasih Pembicara 3. Dari pengujian kami, **CNN memperoleh akurasi tertinggi sebesar 85.16%** pada epoch ke-20 dengan loss validasi sebesar 0.3252. **Random Forest menempati posisi kedua dengan akurasi 80.92%** dan waktu training yang sangat singkat, yaitu hanya 73,97 detik. Sementara **SVM memberikan hasil terendah dengan akurasi 64.31%** dan waktu training terlama mencapai 247,95 detik.
-  > 
-  > Mengapa SVM berkinerja buruk? Jika kita menganalisis Confusion Matrix dan Classification Report dari SVM di layar:
-  > - Kelas **Bercak Coklat** memiliki *recall* 90% (104 dari 115 benar), namun *precision*-nya hanya 59%. Ini berarti SVM terlalu sering menebak suatu citra sebagai Bercak Coklat meskipun sebenarnya bukan.
-  > - Masalah paling kritis ada pada kelas **Hawar Daun Padi**. Dari 27 data uji, **hanya 1 citra yang berhasil diklasifikasikan dengan benar (recall 4%)**. 18 citra salah diprediksi sebagai Bercak Coklat, dan 8 citra salah diprediksi sebagai Blast.
-  > 
-  > Ketidakseimbangan data training (Hawar Daun hanya memiliki 168 sampel dibandingkan Bercak Coklat yang memiliki 592 sampel) serta ketidakmampuan fitur manual dalam membedakan lesi hawar daun dan bercak coklat menyebabkan SVM mengalami bias ekstrem ke kelas mayoritas. Mari kita dengarkan kesimpulan dan solusi dari Pembicara 5."
+## 🎙️ Naskah Presentasi Detail per Presenter
+
+### 👤 PRESENTASI BAGIAN 1: Fondasi Riset & Penentuan Cluster (00:00 - 02:45)
+* **Pembicara**: Presenter 1 (Kaisha)
+* **Visual Pendukung**: Slide Judul, Poin Relevansi Data, & Grafik Elbow.
+
+#### 📢 Naskah Opening & Sambutan Awal:
+> "Selamat pagi/siang kami ucapkan kepada yang terhormat Bapak/Ibu Dosen Pengampu mata kuliah Data Mining, serta rekan-rekan mahasiswa yang kami banggakan. 
+> 
+> Perkenalkan, saya **Kaisha** bersama rekan saya, **[Nama Rekan]**, dari kelompok [Nama/Nomor Kelompok]. Hari ini, kami akan mempresentasikan hasil analisis clustering kami mengenai **'Segmentasi Performa Akademis Siswa Menggunakan Algoritma K-Means'** berdasarkan dataset *student-mat.csv*.
+> 
+> Mari kita mulai dengan alasan krusial mengapa kami memilih topik dan dataset ini."
+
+#### 📢 Naskah Analisis Data & Metode:
+> "Pendidikan yang sukses membutuhkan deteksi dini terhadap siswa yang mengalami kesulitan akademis. Dataset ini kami pilih karena memiliki tingkat **relevansi** yang tinggi antara variabel perilaku belajar seperti waktu belajar, absensi, dan nilai berkala G1, G2, dan G3. 
+> 
+> Dari segi **keandalan**, data ini bersumber dari UCI Repository yang berbasis pada performa nyata siswa di Portugal, menjamin analisis kami bebas dari bias data buatan. **Signifikansi** proyek ini terletak pada kemampuan clustering dalam mengelompokkan siswa ke dalam kelompok risiko akademik agar sekolah bisa melakukan intervensi sebelum siswa tersebut gagal.
+> 
+> Untuk melakukan pengelompokan ini, kami menyeleksi 6 fitur numerik utama: *studytime, failures, absences, G1, G2,* dan *G3*. Data ini terlebih dahulu kami standarisasi menggunakan *StandardScaler* agar perbedaan skala (seperti absensi yang bernilai puluhan dan kegagalan yang bernilai satuan) tidak mendominasi algoritma.
+> 
+> Langkah pertama kami adalah menentukan jumlah cluster terbaik (K) menggunakan **Metode Elbow**. Jika kita melihat visualisasi grafik Elbow di layar *(tunjuk gambar Grafik Elbow)*, nilai *inertia* menurun tajam dan mulai melandai secara signifikan setelah angka 3. Hal ini menunjukkan bahwa **K=3** adalah jumlah cluster paling optimal dan natural untuk membagi data siswa ini. Selanjutnya, rekan saya akan memaparkan temuan cluster ini."
 
 ---
 
-#### 👤 PEMBICARA 5: Kesimpulan & Solusi Pengembangan
-* **Porsi Waktu:** 05:30 - 06:30 (60 detik)
-* **Visual Pendukung:** Poin Kesimpulan dan Rencana Peningkatan Sistem.
-* **Teks Panduan Presentasi:**
-  > "Terima kasih Pembicara 4. Sebagai kesimpulan:
-  > 1. **CNN terbukti menjadi model terbaik** dengan akurasi **85.16%** karena kemampuannya mengekstrak fitur spasial yang kompleks tanpa bergantung pada ekstraksi fitur manual.
-  > 2. **Random Forest adalah alternatif yang sangat efisien** dengan akurasi **80.92%** dan waktu komputasi yang sangat cepat (74 detik), cocok untuk perangkat dengan spesifikasi rendah.
-  > 3. **SVM tidak direkomendasikan** untuk kasus ini karena sangat rentan terhadap bias data minoritas (*Hawar Daun Padi*) dengan akurasi hanya **64.31%**.
-  > 
-  > Untuk pengembangan ke depan, kami menyarankan beberapa peningkatan teknis:
-  > - Menerapkan teknik penyeimbangan data seperti **SMOTE** (Synthetic Minority Over-sampling Technique) atau augmentasi gambar khusus untuk kelas minoritas (*Hawar Daun*).
-  > - Menggunakan arsitektur CNN transfer learning yang lebih modern seperti *MobileNetV3* atau *ResNet50* agar akurasi bisa ditingkatkan di atas 95% untuk implementasi aplikasi mobile petani di lapangan.
-  > 
-  > Sekian presentasi dari kelompok kami. Kami membuka sesi tanya jawab jika ada tanggapan dari audiens atau dosen penilai. Terima kasih."
+### 👤 PRESENTASI BAGIAN 2: Hasil Analisis & Solusi (02:45 - 05:30)
+* **Pembicara**: Presenter 2 ([Nama Rekan])
+* **Visual Pendukung**: Tabel Karakteristik Cluster & Visualisasi Scatter Plot.
+
+#### 📢 Naskah Hasil Analisis & Visualisasi:
+> "Terima kasih, Kaisha. Setelah menjalankan algoritma K-Means dengan K=3, kami berhasil mengidentifikasi tiga kelompok siswa dengan karakteristik performa akademik yang sangat kontras:
+> 
+> Pertama, **Cluster 2 atau 'Siswa Berprestasi Tinggi'**. Kelompok ini memiliki waktu belajar tertinggi (2.17 jam), hampir tidak pernah gagal di masa lalu (0.08), tingkat absen rendah (3.93), dan nilai akhir G3 rata-rata sangat tinggi di angka **14.78** dari skala 20.
+> 
+> Kedua, **Cluster 0 atau 'Siswa Performa Menengah dengan Absensi Tinggi'**. Siswa di cluster ini sebenarnya memiliki waktu belajar yang cukup baik (2.06 jam) dan tingkat kegagalan yang rendah (0.11). Namun, mereka memiliki tingkat absensi rata-rata tertinggi, yaitu **7.63 kali**. Performa akademis mereka berada di tingkat menengah dengan nilai G3 rata-rata **9.55**, mendekati batas kelulusan.
+> 
+> Ketiga, **Cluster 1 atau 'Siswa Berisiko Tinggi'**. Ini adalah kelompok kritis yang membutuhkan perhatian penuh. Mereka memiliki waktu belajar terendah (1.67 jam) dan tingkat kegagalan masa lalu tertinggi mencapai rata-rata **1.53 kali**. Hasilnya, performa akademis mereka merosot tajam dari UTS G1 (7.19) ke nilai akhir G3 yang hanya mencapai **3.78**. Mereka berada di bawah garis kelulusan.
+> 
+> Visualisasi hubungan ini dapat kita lihat pada **Scatter Plot** di layar *(tunjuk visualisasi Scatter Plot)*. Titik kuning mewakili Cluster 2 yang berprestasi tinggi berkonsentrasi di sisi kanan nilai G3 (12-20). Titik ungu mewakili Cluster 0 (menengah) menyebar luas di bagian atas menunjukkan tingginya tingkat absensi mereka. Dan titik hijau/teal mewakili Cluster 1 (berisiko) berkumpul di sudut kiri bawah, menandakan nilai akhir rendah dengan tren performa akademik yang menurun drastis."
 
 ---
 
-## 📈 Lampiran Bukti Teknis & Analisis Log
+### 👥 KESIMPULAN & PENUTUP (05:30 - 06:00)
+* **Pembicara**: Bersama / Presenter 2
 
-Berikut adalah tangkapan layar terminal dan laporan evaluasi yang menjadi dasar analisis kami:
+#### 📢 Naskah Penutup & Solusi Akademik:
+> "Berdasarkan temuan clustering ini, kami merekomendasikan solusi akademis yang terarah:
+> 1. **Untuk Cluster 1 (Berisiko Tinggi)**: Sekolah wajib memberikan kelas remedial intensif, bimbingan belajar tambahan, serta konseling motivasi untuk menekan riwayat kegagalan mereka.
+> 2. **Untuk Cluster 0 (Absensi Tinggi)**: Sekolah perlu menelusuri alasan di balik tingginya absensi siswa melalui pendekatan personal dan kerja sama dengan orang tua, guna menyelamatkan nilai mereka yang saat ini berada di batas kelulusan.
+> 3. **Untuk Cluster 2 (Berprestasi)**: Program pengayaan dan apresiasi agar motivasi belajar mereka tetap terjaga.
+> 
+> Demikian presentasi hasil analisis data mining kami. Kami membuka sesi tanya jawab apabila ada tanggapan atau masukan dari Bapak/Ibu Dosen serta rekan-rekan sekalian. Terima kasih."
 
-### 1. Model CNN (Akurasi: 85.16%)
-* **Bukti File:** [WhatsApp Image 2026-06-22 at 19.14.26.jpeg](file:///c:/Users/Kaisha/Documents/!TUGAS%20KAISHA/semester%204/persentasi/WhatsApp%20Image%202026-06-22%20at%2019.14.26.jpeg)
-* **Analisis Log:** 
-  CNN dilatih selama 20 epoch. Pada epoch ke-20, model mencapai:
-  * `accuracy: 0.8583` (Akurasi data training)
-  * `loss: 0.3512`
-  * `val_accuracy: 0.8516` (Akurasi data validasi/uji)
-  * `val_loss: 0.3252`
-  * Model disimpan dalam format Keras/HDF5 di direktori `C:\Projects\dataset padi\trained_models`.
+---
 
-### 2. Model Random Forest (Akurasi: 80.92%)
-* **Bukti File:** [WhatsApp Image 2026-06-22 at 19.15.52.jpeg](file:///c:/Users/Kaisha/Documents/!TUGAS%20KAISHA/semester%204/persentasi/WhatsApp%20Image%202026-06-22%20at%2019.15.52.jpeg)
-* **Analisis Log:**
-  * Training menggunakan **200 pohon keputusan**.
-  * Waktu eksekusi sangat cepat: **73.971 detik**.
-  * Hasil akurasi akhir: **80.92%**.
+## 💻 Panduan Visual: Apa Saja yang Harus Ditampilkan?
 
-### 3. Model SVM (Akurasi: 64.31%)
-* **Bukti File:** 
-  * Log Eksekusi: [WhatsApp Image 2026-06-22 at 19.13.41.jpeg](file:///c:/Users/Kaisha/Documents/!TUGAS%20KAISHA/semester%204/persentasi/WhatsApp%20Image%202026-06-22%20at%2019.13.41.jpeg) (Akurasi 64.31%, durasi 247.95 detik)
-  * Laporan Klasifikasi: [WhatsApp Image 2026-06-22 at 19.13.42.jpeg](file:///c:/Users/Kaisha/Documents/!TUGAS%20KAISHA/semester%204/persentasi/WhatsApp%20Image%202026-06-22%20at%2019.13.42.jpeg)
-  * Confusion Matrix: [WhatsApp Image 2026-06-22 at 19.01.39.jpeg](file:///c:/Users/Kaisha/Documents/!TUGAS%20KAISHA/semester%204/persentasi/WhatsApp%20Image%202026-06-22%20at%2019.01.39.jpeg)
-* **Analisis Log:**
-  * SVM memiliki kinerja terburuk, dengan ketimpangan klasifikasi yang parah pada kelas minoritas *Hawar Daun Padi* akibat bias kelas mayoritas *Bercak Coklat*.
+Untuk meyakinkan dosen dan mempermudah pemahaman audiens dalam waktu 6 menit, gunakan susunan slide berikut:
+
+```
+[Slide 1: Judul & Anggota]  -->  [Slide 2: Relevansi & Keandalan] --> [Slide 3: Seleksi Fitur]
+                                                                                |
+[Slide 6: Rekomendasi/Solusi] <-- [Slide 5: Scatter Plot Hasil]  <-- [Slide 4: Grafik Elbow]
+```
+
+### 1. Slide 1: Judul dan Perkenalan
+* **Isi**: Judul proyek, Nama Presenter (Kaisha & [Rekan]), Logo Universitas, Nama Mata Kuliah (Data Mining), dan Dosen Pengampu.
+* **Aesthetic Tip**: Gunakan tema warna premium (seperti dark mode dengan aksen hijau emerald atau biru royal).
+
+### 2. Slide 2: Latar Belakang & Alasan Pemilihan Data
+* **Isi**: Poin-poin ringkas mengenai **Relevansi** (urgensi kegagalan siswa), **Keandalan** (kredibilitas UCI Repository), dan **Signifikansi** (dampak kebijakan berbasis data).
+
+### 3. Slide 3: Seleksi Fitur & Preprocessing
+* **Isi**: Penjelasan singkat mengapa memilih fitur: `studytime`, `failures`, `absences`, `G1`, `G2`, `G3`. Tampilkan diagram alir kecil bagaimana data distandarisasi (*StandardScaler*).
+
+### 4. Slide 4: Metode Elbow (Penentuan Cluster)
+* **Visual Utama**: Tampilkan plot dari file [Cuplikan layar 2026-06-22 225416.png](file:///c:/Users/Kaisha/Documents/!TUGAS%20KAISHA/semester%204/persentasi%20DATA%20MINING/Cuplikan%20layar%202026-06-22%20225416.png).
+* **Highlight**: Lingkari area lekukan (*elbow point*) di K=3 untuk memperkuat alasan pemilihan 3 cluster.
+
+### 5. Slide 5: Tabel Hasil Cluster & Profiling
+* **Visual Utama**: Tabel ringkasan rata-rata yang sangat rapi:
+  
+  | Fitur Akademik / Perilaku | Cluster 2 (Berprestasi) | Cluster 0 (Absensi Tinggi) | Cluster 1 (Berisiko Tinggi) |
+  | :--- | :---: | :---: | :---: |
+  | **Waktu Belajar** | **2.17 jam** (Tinggi) | 2.06 jam (Sedang) | 1.67 jam (Rendah) |
+  | **Tingkat Kegagalan** | 0.09 (Sangat Rendah) | 0.11 (Rendah) | **1.53** (Sangat Tinggi) |
+  | **Rata-rata Absensi** | 3.93 kali (Rendah) | **7.63 kali** (Tinggi) | 3.64 kali (Rendah) |
+  | **Nilai UTS-1 (G1)** | **14.54** | 9.59 | 7.19 |
+  | **Nilai UTS-2 (G2)** | **14.55** | 9.66 | 5.77 |
+  | **Nilai Akhir (G3)** | **14.78** (Lulus Sangat Baik) | **9.55** (Lulus Cukup) | **3.78** (Tidak Lulus) |
+
+### 6. Slide 6: Visualisasi Scatter Plot K-Means
+* **Visual Utama**: Tampilkan plot dari file [Cuplikan layar 2026-06-22 225447.png](file:///c:/Users/Kaisha/Documents/!TUGAS%20KAISHA/semester%204/persentasi%20DATA%20MINING/Cuplikan%20layar%202026-06-22%20225447.png).
+* **Highlight**: Jelaskan sebaran warna cluster dan bagaimana korelasi visual antara nilai G3 dengan jumlah absen membantu mempertegas identitas tiap cluster.
+
+### 7. Slide 7: Rekomendasi Tindak Lanjut Akademik (Solusi)
+* **Isi**: Rekomendasi aksi nyata sekolah untuk masing-masing cluster (Remedial untuk Cluster 1, Pembinaan Absensi untuk Cluster 0, Program Pengayaan untuk Cluster 2).
 
 ---
 
 > [!TIP]
-> **Saran untuk Kelompok:** 
-> Latihlah transisi antar pembicara agar terasa mulus dan tidak membuang waktu. Pembicara 4 harus menunjukkan gambar Confusion Matrix SVM di layar secara interaktif saat menjelaskan kesalahan klasifikasi Hawar Daun Padi.
+> **Tips Sukses Presentasi 6 Menit:**
+> 1. **Latih Transisi**: Saat Presenter 1 selesai menjelaskan grafik Elbow di Slide 4, langsung oper presentasi ke Presenter 2 dengan kalimat: *"Untuk memaparkan hasil clustering ini, silakan rekan saya [Nama Rekan] untuk melanjutkan."*
+> 2. **Fokus pada Angka Kunci**: Dosen menyukai data riil. Sebutkan angka rata-rata G3 (14.78 vs 9.55 vs 3.78) secara jelas saat menjelaskan profil cluster.
+> 3. **Posisikan Kursor dengan Baik**: Saat presentasi, gunakan laser pointer/kursor untuk menunjuk sumbu X (G3) dan sumbu Y (Absensi) pada Slide Scatter Plot.
